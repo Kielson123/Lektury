@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kompleksowa baza 41 lektur maturalnych z dopasowanymi 3 sfunkcjonalizowanymi kontekstami interpretacyjnymi do każdej lektury. Gotowe argumenty na maturę ustną i pisemną z języka polskiego.">
+  <meta name="theme-color" content="#4f46e5">
+  <title>Konteksty Interpretacyjne Lektur Maturalnych | 41 Lektur, 123 Konteksty CKE</title>
+  
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       Pasek górny (Topbar / Nawigacja)
+       ========================================== -->
+  <header class="topbar">
+    <div class="topbar-container">
+      <div class="brand">
+        <div class="brand-icon">📚</div>
+        <div>
+          <span>KontekstyMaturalne</span>
+          <span class="brand-badge">Formuła 2023–2026</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn-secondary" id="btnOpenGuide" title="Jak poprawnie używać kontekstów na maturze?">
+          💡 <span class="action-label">Przewodnik CKE</span>
+        </button>
+        <button class="btn-primary" id="btnRandomizer" title="Wylosuj lekturę do powtórki (tryb fiszki)">
+          🎲 <span class="action-label">Losuj fiszkę</span>
+        </button>
+        <button class="btn-icon" onclick="window.print()" title="Drukuj / Zapisz do PDF" aria-label="Drukuj">
+          🖨️
+        </button>
+        <button class="btn-icon" id="themeToggleBtn" title="Przełącz motyw ciemny/jasny" aria-label="Zmień motyw">
+          <span id="themeIcon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       Sekcja Hero
+       ========================================== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">
+        🎓 Egzamin Maturalny z Języka Polskiego • Baza Wiedzy
+      </div>
+      <h1 class="hero-title">
+        Trzy Konteksty Interpretacyjne <span>do Każdej Lektury</span>
+      </h1>
+      <p class="hero-desc">
+        Wszystkie lektury z zakresu podstawowego, szkoły podstawowej oraz lektury dodatkowe. Do każdego utworu dopasowaliśmy <strong>trzy precyzyjnie sfunkcjonalizowane konteksty</strong> (historyczne, filozoficzne, biograficzne, mitologiczne i intertekstualne) – gotowe do wykorzystania w wypracowaniu i na maturze ustnej.
+      </p>
+
+      <!-- Statystyki / KPI Chips -->
+      <div class="stats-grid">
+        <div class="stat-chip">
+          <div class="stat-icon">📖</div>
+          <div class="stat-info">
+            <div class="stat-number">41</div>
+            <div class="stat-label">Lektur w bazie</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-info">
+            <div class="stat-number">123</div>
+            <div class="stat-label">Sfunkcjonalizowane konteksty</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">🏛️</div>
+          <div class="stat-info">
+            <div class="stat-number">11</div>
+            <div class="stat-label">Epok literackich</div>
+          </div>
+        </div>
+        <div class="stat-chip">
+          <div class="stat-icon">💯</div>
+          <div class="stat-info">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Zgodność z CKE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Panel Filtrów i Wyszukiwarki (Sticky)
+       ========================================== -->
+  <section class="filter-section">
+    <div class="filter-container">
+      
+      <!-- Wyszukiwarka tekstowa -->
+      <div class="search-bar-row">
+        <div class="search-input-wrapper">
+          <span class="search-icon">🔍</span>
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Szukaj lektury, autora, motywu (np. cierpienie, zbrodnia, mit, Prus)..." 
+            autocomplete="off"
+          >
+          <button class="btn-clear-search" id="btnClearSearch" title="Wyczyść wyszukiwanie">✕</button>
+        </div>
+
+        <button class="btn-secondary" id="btnToggleFavorites" title="Pokaż tylko lektury oznaczone gwiazdką">
+          ⭐ <span>Moje powtórki</span>
+        </button>
+
+        <button class="btn-secondary" id="btnResetFilters" title="Zresetuj wszystkie filtry">
+          🔄 <span>Reset</span>
+        </button>
+      </div>
+
+      <!-- Główne pigułki kategorii -->
+      <div class="category-pills">
+        <button class="pill-btn active" data-category="all">
+          Wszystkie lektury <span class="pill-badge" id="countAll">41</span>
+        </button>
+        <button class="pill-btn" data-category="podstawowy">
+          Zakres podstawowy LO <span class="pill-badge" id="countPodstawowy">29</span>
+        </button>
+        <button class="pill-btn" data-category="podstawowa-szkola">
+          Szkoła podstawowa <span class="pill-badge" id="countSP">4</span>
+        </button>
+        <button class="pill-btn" data-category="dodatkowy">
+          Lektury dodatkowe <span class="pill-badge" id="countDodatkowe">8</span>
+        </button>
+      </div>
+
+      <!-- Filtry zaawansowane: Epoka i Typ kontekstu -->
+      <div class="subfilter-row">
+        <div class="subfilter-group">
+          <label for="epokaFilter" style="color: var(--text-muted); font-weight: 600;">Epoka:</label>
+          <select id="epokaFilter" class="filter-select">
+            <option value="all">Wszystkie epoki</option>
+            <option value="Starożytność">Starożytność</option>
+            <option value="Średniowiecze">Średniowiecze</option>
+            <option value="Renesans">Renesans</option>
+            <option value="Barok">Barok</option>
+            <option value="Oświecenie">Oświecenie</option>
+            <option value="Romantyzm">Romantyzm</option>
+            <option value="Pozytywizm">Pozytywizm</option>
+            <option value="Młoda Polska">Młoda Polska</option>
+            <option value="Dwudziestolecie międzywojenne">Dwudziestolecie międzywojenne</option>
+            <option value="Wojna i okupacja">Wojna i okupacja</option>
+            <option value="Współczesność">Współczesność</option>
+          </select>
+
+          <label for="contextTypeFilter" style="color: var(--text-muted); font-weight: 600; margin-left: 0.5rem;">Typ kontekstu:</label>
+          <select id="contextTypeFilter" class="filter-select">
+            <option value="all">Wszystkie typy</option>
+            <option value="Filozoficz">Filozoficzny / Ideowy</option>
+            <option value="Historycz">Historyczny / Polityczny</option>
+            <option value="Biograficz">Biograficzny</option>
+            <option value="Intertekst">Intertekstualny / Literacki</option>
+            <option value="Archetyp">Archetypiczny / Mitologiczny</option>
+            <option value="Biblij">Biblijny / Religijny</option>
+            <option value="Społeczn">Społeczny / Obyczajowy</option>
+            <option value="Malarstw">Sztuka i Malarstwo</option>
+          </select>
+        </div>
+
+        <div class="active-results-count" id="activeCountText">
+          Wyświetlam 41 z 41 lektur
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       Główna zawartość - Siatka Kart Lektur
+       ========================================== -->
+  <main class="main-content">
+    <div class="cards-grid" id="cardsContainer">
+      <!-- Karty generowane dynamicznie przez app.js -->
+    </div>
+
+    <!-- Pusty stan wyszukiwania -->
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">🔎</div>
+      <h3 class="empty-title">Nie znaleziono lektury</h3>
+      <p class="empty-desc">Spróbuj zmienić słowo kluczowe, motyw lub wyczyścić filtry epoki i kategorii.</p>
+      <button class="btn-primary" onclick="document.getElementById('btnResetFilters').click()">
+        🔄 Zresetuj wszystkie filtry
+      </button>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       Modal: Przewodnik CKE - Jak pisać konteksty
+       ========================================== -->
+  <div class="modal-backdrop" id="guideModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>💡</span> Jak zdobyć 100% punktów za kontekst na maturze?
+        </div>
+        <button class="btn-icon" id="btnCloseGuide" aria-label="Zamknij">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Zgodnie z Informatorem CKE do egzaminu maturalnego z języka polskiego, <strong>kontekst</strong> to odniesienie do innego tekstu kultury, faktu historycznego, biografii, nurtu filozoficznego lub tradycji mitologiczno-biblijnej.
+        </p>
+
+        <div class="guide-step">
+          <div class="guide-step-title">🎯 1. Co to znaczy „sfunkcjonalizować kontekst”?</div>
+          <p>
+            Kontekst nie może być tylko „luźną ciekawostką”. Musisz wyraźnie wskazać, <strong>jak wiedza o tym kontekście pogłębia odczytanie omawianej lektury</strong>. Musi on służyć udowodnieniu Twojej tezy maturalnej.
+          </p>
+        </div>
+
+        <div class="guide-step">
+          <div class="guide-step-title">📝 2. Idealny 4-krokowy schemat akapitu z kontekstem:</div>
+          <ol style="margin-left: 1.25rem; display: flex; flex-direction: column; gap: 0.35rem; margin-top: 0.5rem;">
+            <li><strong>Zdanie wprowadzające (teza cząstkowa):</strong> sformułowanie myśli przewodniej akapitu.</li>
+            <li><strong>Argumentacja z lektury:</strong> odwołanie do konkretnego wątku, sceny lub bohatera.</li>
+            <li><strong>Wprowadzenie kontekstu:</strong> przywołanie drugiego tekstu, myśli filozoficznej lub wydarzenia dziejowego.</li>
+            <li><strong>Wniosek i sfunkcjonalizowanie:</strong> zestawienie obu dzieł i wyciągnięcie wniosku („Dzięki odwołaniu do filozofii X postawa bohatera Y zyskuje wymiar...”).</li>
+          </ol>
+        </div>
+
+        <div class="guide-mistakes">
+          <h4>⚠️ Najczęstsze błędy maturalne:</h4>
+          <ul style="margin-left: 1.25rem; margin-top: 0.35rem; display: flex; flex-direction: column; gap: 0.3rem;">
+            <li><strong>Wzmianka dekoracyjna:</strong> rzucenie tytułu lub nazwiska bez omówienia (0 punktów za kontekst!).</li>
+            <li><strong>Streszczanie zamiast wnioskowania:</strong> opowiadanie fabuły drugiego utworu zamiast porównania problematyki.</li>
+            <li><strong>Błąd rzeczowy lub kardynalny:</strong> przekręcenie nazwiska, epoki lub fundamentalnych faktów o lekturze.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="document.getElementById('btnCloseGuide').click()">
+          Rozumiem, przejdź do powtórek
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       Modal: Tryb Fiszki / Randomizer
+       ========================================== -->
+  <div class="modal-backdrop" id="flashcardModal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎲</span> Tryb Fiszki – Sprawdź swoją wiedzę
+        </div>
+        <button class="btn-icon" id="btnCloseFlashcard" aria-label="Zamknij">✕</button>
+      </div>
+      <div class="modal-body" id="flashcardBody">
+        <!-- Zawartość fiszki generowana w app.js -->
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btnRevealFlashcard">
+          👁️ Odkryj 3 konteksty
+        </button>
+        <button class="btn-primary" id="btnNextRandom">
+          🎲 Następna lektura
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kontener powiadomień Toast -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ==========================================
+       Stopka (Footer)
+       ========================================== -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div style="font-weight: 700; color: var(--text-main);">
+        📚 Vademecum Kontekstów Maturalnych • Język Polski
+      </div>
+      <p>
+        Opracowanie merytoryczne zgodne z wymaganiami Centralnej Komisji Egzaminacyjnej (CKE). Wszystkie 41 lektur obowiązkowych i dodatkowych z potrójnymi kontekstami interpretacyjnymi.
+      </p>
+      <div class="footer-links">
+        <a href="#top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">⬆️ Wróć na górę</a>
+        <a href="#" onclick="document.getElementById('btnOpenGuide').click(); return false;">💡 Przewodnik CKE</a>
+        <a href="#" onclick="document.getElementById('btnRandomizer').click(); return false;">🎲 Losuj powtórkę</a>
+        <a href="#" onclick="window.print(); return false;">🖨️ Drukuj notatki</a>
+      </div>
+      <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.5rem;">
+        Projekt edukacyjny wspierający maturzystów w przygotowaniach do egzaminu pisemnego i ustnego.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Skrypty -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
