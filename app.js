@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const matchesMotif = item.motywy.some(m => m.toLowerCase().includes(query));
         const matchesContext = item.konteksty.some(k => 
           k.tytul.toLowerCase().includes(query) ||
+          (k.zrodloZewnetrzne && k.zrodloZewnetrzne.toLowerCase().includes(query)) ||
           k.opis.toLowerCase().includes(query) ||
           k.funkcja.toLowerCase().includes(query) ||
           k.typ.toLowerCase().includes(query)
@@ -280,7 +281,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           <div class="contexts-grid">
             ${item.konteksty.map((kontekst, index) => {
-              const fullContextMarkdown = `**${escapeHTML(item.tytul)} - Kontekst ${index + 1}: ${escapeHTML(kontekst.tytul)} (${kontekst.typ})**\n\n${kontekst.opis}\n\n*Funkcja na maturze:* ${kontekst.funkcja}`;
+              const fullContextMarkdown = `**${escapeHTML(item.tytul)} - Kontekst ${index + 1}: ${escapeHTML(kontekst.tytul)} (${kontekst.typ})**\n- **Wiedza zewnętrzna:** ${kontekst.zrodloZewnetrzne}\n- **Opis:** ${kontekst.opis}\n- **Funkcja na maturze:** ${kontekst.funkcja}`;
               return `
                 <div class="context-box">
                   <div class="context-header">
@@ -288,9 +289,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="context-type-badge">${escapeHTML(kontekst.typ)}</span>
                   </div>
                   <h3 class="context-title">${escapeHTML(kontekst.tytul)}</h3>
+                  <div class="context-external-source">
+                    <span class="source-icon">🏛️</span>
+                    <div class="source-content">
+                      <span class="source-label">Wiedza zewnętrzna wobec dzieła:</span>
+                      <span class="source-text">${escapeHTML(kontekst.zrodloZewnetrzne)}</span>
+                    </div>
+                  </div>
                   <p class="context-desc">${escapeHTML(kontekst.opis)}</p>
                   <div class="context-function-box">
-                    <div class="function-label">🎯 Funkcja w interpretacji (jak użyć na maturze):</div>
+                    <div class="function-label">🎯 Sfunkcjonalizowanie na maturze:</div>
                     <div>${escapeHTML(kontekst.funkcja)}</div>
                   </div>
                   <button class="btn-copy-context" data-copy-text="${escapeAttribute(fullContextMarkdown)}" title="Kopiuj ten kontekst">
@@ -393,8 +401,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     item.konteksty.forEach((k, idx) => {
       md += `### ${idx + 1}. [${k.typ}] ${k.tytul}\n`;
-      md += `${k.opis}\n\n`;
-      md += `> **Funkcja na maturze:** ${k.funkcja}\n\n`;
+      md += `- **Wiedza zewnętrzna:** ${k.zrodloZewnetrzne}\n`;
+      md += `- **Opis:** ${k.opis}\n`;
+      md += `> **Sfunkcjonalizowanie na maturze:** ${k.funkcja}\n\n`;
     });
 
     md += `## Przykładowe tematy maturalne:\n`;
@@ -457,9 +466,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="context-type-badge">${escapeHTML(k.typ)}</span>
               </div>
               <h4 class="context-title">${escapeHTML(k.tytul)}</h4>
+              <div class="context-external-source">
+                <span class="source-icon">🏛️</span>
+                <div class="source-content">
+                  <span class="source-label">Wiedza zewnętrzna wobec dzieła:</span>
+                  <span class="source-text">${escapeHTML(k.zrodloZewnetrzne)}</span>
+                </div>
+              </div>
               <p class="context-desc">${escapeHTML(k.opis)}</p>
               <div class="context-function-box">
-                <div class="function-label">🎯 Funkcja na maturze:</div>
+                <div class="function-label">🎯 Sfunkcjonalizowanie na maturze:</div>
                 <div>${escapeHTML(k.funkcja)}</div>
               </div>
             </div>

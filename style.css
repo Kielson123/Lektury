@@ -797,6 +797,49 @@ button {
   line-height: 1.35;
 }
 
+/* Wyróżnik wiedzy zewnętrznej */
+.context-external-source {
+  background: var(--bg-highlight);
+  border: 1px solid rgba(79, 70, 229, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.86rem;
+}
+
+[data-theme="dark"] .context-external-source {
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.source-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.source-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.source-label {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary);
+  letter-spacing: 0.5px;
+}
+
+.source-text {
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.35;
+}
+
 .context-desc {
   font-size: 0.92rem;
   color: var(--text-soft);
